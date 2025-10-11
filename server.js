@@ -4,7 +4,7 @@ const path = require("path");
 const cors = require("cors");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const TRADERS_FILE = path.join(__dirname, "traders.json");
 
 // Middleware
@@ -42,11 +42,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`
-╔════════════════════════════════════════════╗
-║  🚀 Server running on http://localhost:${PORT}  ║
-║  📁 Syncing with traders.json              ║
-║  ✨ Real-time updates enabled              ║
-╚════════════════════════════════════════════╝
-  `);
+  console.log(`🚀 Traders Manager Server running on port ${PORT}`);
+  console.log(`📁 Syncing with traders.json`);
+  console.log(`✨ Real-time updates enabled`);
 });
