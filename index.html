@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مدير المحافظات والمدن</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar for Governorates and Cities -->
+      <aside
+        class="sidebar"
+        role="navigation"
+        aria-label="قائمة المحافظات والمدن"
+      >
+        <h2>المحافظات والمدن</h2>
+        <input
+          type="text"
+          id="search"
+          placeholder="ابحث عن محافظة أو مدينة..."
+          class="search-input"
+          aria-label="البحث في المحافظات والمدن"
+          autocomplete="off"
+        />
+        <ul
+          id="location-list"
+          class="location-list"
+          role="tree"
+          aria-label="قائمة المحافظات والمدن"
+        ></ul>
+      </aside>
+
+      <!-- Main Content for Table and Management -->
+      <main class="main-content" role="main">
+        <div class="trader-section">
+          <div class="trader-header">
+            <div class="header-controls">
+              <div class="action-buttons">
+                <button
+                  id="list-all-traders-btn"
+                  class="btn-info"
+                  aria-label="عرض جميع التجار"
+                >
+                  <span class="btn-icon" aria-hidden="true">📋</span>
+                  جميع التجار
+                </button>
+                <button
+                  id="add-trader-btn"
+                  class="btn-primary"
+                  disabled
+                  aria-describedby="trader-section-title"
+                >
+                  <span class="btn-icon" aria-hidden="true">👤</span>
+                  إضافة تاجر
+                </button>
+                <button
+                  id="export-excel-btn"
+                  class="btn-success"
+                  aria-describedby="trader-section-title"
+                >
+                  <span class="btn-icon" aria-hidden="true">📊</span>
+                  تصدير Excel
+                </button>
+                <button
+                  id="manage-columns-btn"
+                  class="btn-secondary"
+                  aria-describedby="trader-section-title"
+                >
+                  <span class="btn-icon" aria-hidden="true">⚙️</span>
+                  إدارة الأعمدة
+                </button>
+              </div>
+              <h2 id="trader-section-title">إدارة التجار</h2>
+            </div>
+          </div>
+
+          <!-- Trader Form -->
+          <div id="trader-form" class="trader-form hidden">
+            <form id="trader-input-form">
+              <div id="form-fields"></div>
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">حفظ</button>
+                <button type="button" id="cancel-form" class="btn-secondary">
+                  إلغاء
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Column Manager -->
+          <div id="column-manager" class="column-manager hidden">
+            <div class="column-manager-header">
+              <h3>إدارة الأعمدة</h3>
+              <button id="close-column-manager" class="close-btn">
+                &times;
+              </button>
+            </div>
+
+            <div class="column-form-compact">
+              <div class="form-row">
+                <input
+                  type="text"
+                  id="new-column-name"
+                  placeholder="اسم العمود الجديد"
+                  class="compact-input"
+                  required
+                />
+                <select id="column-type" class="compact-select">
+                  <option value="text">نص</option>
+                  <option value="number">رقم</option>
+                  <option value="phone">هاتف</option>
+                  <option value="email">بريد</option>
+                  <option value="url">رابط</option>
+                  <option value="date">تاريخ</option>
+                  <option value="checkbox">اختيار</option>
+                  <option value="select">قائمة</option>
+                </select>
+                <button id="add-column-btn" class="btn-add-compact">
+                  <span>➕</span>
+                </button>
+              </div>
+
+              <div
+                class="form-row"
+                id="select-options-group"
+                style="display: none"
+              >
+                <input
+                  type="text"
+                  id="select-options"
+                  placeholder="خيار 1, خيار 2, خيار 3"
+                  class="compact-input-full"
+                />
+              </div>
+            </div>
+
+            <div class="columns-list-compact">
+              <h4>الأعمدة الحالية</h4>
+              <div id="column-list" class="column-chips"></div>
+            </div>
+          </div>
+
+          <!-- Traders Container -->
+          <div id="traders-container" role="region" aria-label="قائمة التجار">
+            <table
+              id="trader-table"
+              class="trader-table"
+              role="table"
+              aria-label="جدول التجار"
+            >
+              <thead>
+                <tr id="table-header" role="row"></tr>
+              </thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div
+      id="confirmation-modal"
+      class="modal-overlay hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modal-title">تأكيد العملية</h3>
+          <button
+            id="modal-close"
+            class="modal-close-btn"
+            aria-label="إغلاق النافذة"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-icon">
+            <span id="modal-icon" aria-hidden="true">⚠️</span>
+          </div>
+          <p id="modal-message">هل أنت متأكد من هذا الإجراء؟</p>
+        </div>
+        <div class="modal-actions">
+          <button id="modal-confirm" class="btn-danger">تأكيد</button>
+          <button id="modal-cancel" class="btn-secondary">إلغاء</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- Code injected by live-server -->
+    <script type="text/javascript">
+      // <![CDATA[  <-- For SVG support
+      if ("WebSocket" in window) {
+        (function () {
+          function refreshCSS() {
+            var sheets = [].slice.call(document.getElementsByTagName("link"));
+            var head = document.getElementsByTagName("head")[0];
+            for (var i = 0; i < sheets.length; ++i) {
+              var elem = sheets[i];
+              head.removeChild(elem);
+              var rel = elem.rel;
+              if (
+                (elem.href && typeof rel != "string") ||
+                rel.length == 0 ||
+                rel.toLowerCase() == "stylesheet"
+              ) {
+                var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, "");
+                elem.href =
+                  url +
+                  (url.indexOf("?") >= 0 ? "&" : "?") +
+                  "_cacheOverride=" +
+                  new Date().valueOf();
+              }
+              head.appendChild(elem);
+            }
+          }
+          var protocol =
+            window.location.protocol === "http:" ? "ws://" : "wss://";
+          var address =
+            protocol + window.location.host + window.location.pathname + "/ws";
+          var socket = new WebSocket(address);
+          socket.onmessage = function (msg) {
+            if (msg.data == "reload") window.location.reload();
+            else if (msg.data == "refreshcss") refreshCSS();
+          };
+          console.log("Live reload enabled.");
+        })();
+      }
+      // ]]>
+    </script>
+  </body>
+</html>

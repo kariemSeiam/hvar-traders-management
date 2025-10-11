@@ -1,0 +1,2085 @@
+/* ================================================
+   CSS Reset and Base Styles
+   ================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Cairo", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #495057;
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: embed;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ================================================
+     Utility Classes
+     ================================================ */
+.hidden {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ================================================
+     Layout Container
+     ================================================ */
+.container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+  gap: 16px;
+  padding: 16px;
+  background: transparent;
+}
+
+/* ================================================
+     Sidebar Styles
+     ================================================ */
+.sidebar {
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
+  padding: 18px;
+  text-align: right;
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  backdrop-filter: blur(2px);
+  position: relative;
+}
+
+.sidebar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #007bff 0%, #28a745 50%, #ffc107 100%);
+  border-radius: 10px 10px 0 0;
+}
+
+.sidebar h2 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+  text-shadow: none;
+  position: relative;
+  letter-spacing: -0.02em;
+}
+
+/* ================================================
+     Search Input
+     ================================================ */
+.search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  border-radius: 6px;
+  margin-bottom: 14px;
+  font-family: "Cairo", sans-serif;
+  text-align: right;
+  direction: rtl;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  box-shadow: inset 0 1px 2px rgba(0, 123, 255, 0.04);
+  transition: all 0.15s ease;
+  font-size: 0.9rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: rgba(0, 123, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.08),
+    inset 0 1px 2px rgba(0, 123, 255, 0.04);
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ================================================
+     Location List Styles
+     ================================================ */
+.location-list {
+  list-style: none;
+  overflow-y: auto;
+  direction: rtl;
+  padding-right: 1px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.location-list::-webkit-scrollbar {
+  display: none;
+}
+
+.location-list > li {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: right;
+  font-weight: 600;
+  color: #495057;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.location-list > li::before {
+  content: "🏛️";
+  font-size: 1rem;
+  margin-left: 10px;
+  opacity: 0.9;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08));
+  flex-shrink: 0;
+}
+
+.location-list > li::after {
+  content: "◀";
+  font-size: 0.8rem;
+  color: #007bff;
+  transition: all 0.15s ease;
+  margin-right: 6px;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.location-list > li.expanded::after {
+  transform: rotate(-90deg);
+  opacity: 1;
+}
+
+.location-list > li:hover {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+  border-color: rgba(0, 123, 255, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.12);
+}
+
+.location-list > li.selected {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  border-color: rgba(74, 144, 226, 0.8);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(74, 144, 226, 0.25);
+}
+
+.location-list > li.selected::after {
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* ================================================
+     City List Styles
+     ================================================ */
+.location-list > li > ul,
+.city-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+  padding: 8px;
+  margin-top: 6px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 6px;
+  direction: rtl;
+  border: 1px solid #e9ecef;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+  overflow-y: auto;
+  backdrop-filter: blur(1px);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.location-list > li > ul::-webkit-scrollbar,
+.city-list::-webkit-scrollbar {
+  display: none;
+}
+
+.location-list > li > ul li,
+.city-list li {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: right;
+  font-weight: 500;
+  color: #495057;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 36px;
+  font-size: 0.9rem;
+}
+
+.location-list > li > ul li:hover,
+.city-list li:hover {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+  border-color: rgba(0, 123, 255, 0.3);
+  color: #4a90e2;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.12);
+}
+
+.location-list > li > ul li.selected,
+.city-list li.selected {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  color: #ffffff;
+  border-color: rgba(74, 144, 226, 0.8);
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(74, 144, 226, 0.25);
+}
+
+.location-list > li > ul li.selected::before,
+.city-list li.selected::before {
+  content: "✅";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+  filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.25));
+  font-size: 0.9rem;
+}
+
+/* ================================================
+     Badge Styles
+     ================================================ */
+.badge {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  vertical-align: middle;
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  min-width: 20px;
+  height: 20px;
+  line-height: 1;
+}
+
+/* ================================================
+     Main Content Area
+     ================================================ */
+.main-content {
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
+  padding: 18px;
+  overflow-y: auto;
+  text-align: right;
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  backdrop-filter: blur(2px);
+}
+
+/* ================================================
+     Trader Header
+     ================================================ */
+.trader-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.trader-header h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.4rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* ================================================
+     View Mode Toggle
+     ================================================ */
+/* View mode toggle styles removed - only table view */
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ================================================
+     Button Styles
+     ================================================ */
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-danger,
+.btn-info {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: "Cairo", sans-serif;
+  transition: all 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(74, 144, 226, 0.25);
+}
+
+.btn-primary:disabled {
+  background: linear-gradient(135deg, #adb5bd 0%, #9aa0a6 100%);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(108, 117, 125, 0.25);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #4a9b4a 0%, #3d7e3d 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(74, 155, 74, 0.25);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc6b6b 0%, #c75c5c 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(220, 107, 107, 0.25);
+}
+
+.btn-info {
+  background: linear-gradient(135deg, #5bc0de 0%, #46b5d1 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(91, 192, 222, 0.25);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #357abd 0%, #2c5aa0 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.35);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.35);
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #3d7e3d 0%, #2d5a2d 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 155, 74, 0.35);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #c75c5c 0%, #a94442 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(220, 107, 107, 0.35);
+}
+
+.btn-info:hover {
+  background: linear-gradient(135deg, #46b5d1 0%, #3195a3 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(91, 192, 222, 0.35);
+}
+
+.btn-icon {
+  font-size: 1rem;
+}
+
+/* ================================================
+     Form Styles
+     ================================================ */
+.trader-form {
+  margin-top: 12px;
+  padding: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border-radius: 8px;
+  text-align: right;
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
+  backdrop-filter: blur(1px);
+}
+
+/* ================================================
+     Compact Column Manager Styles
+     ================================================ */
+.column-manager {
+  margin-top: 12px;
+  padding: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border-radius: 8px;
+  text-align: right;
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
+  width: 100%;
+}
+
+.column-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid #f1f3f5;
+}
+
+.column-manager-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.column-manager-header h3::before {
+  content: "⚙️";
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #6c757d;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.close-btn::before {
+  content: "إغلاق";
+  position: absolute;
+  top: -35px;
+  right: 50%;
+  transform: translateX(50%);
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+.close-btn:hover {
+  background: #f8f9fa;
+  color: #dc3545;
+  transform: rotate(90deg);
+}
+
+.close-btn:hover::before {
+  opacity: 1;
+}
+
+.column-form-compact {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.column-form-compact::before {
+  content: "إضافة عمود جديد";
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.column-form-compact::after {
+  content: "➕";
+  font-size: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.compact-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: "Cairo", sans-serif;
+  direction: rtl;
+  text-align: right;
+  transition: all 0.2s ease;
+  background: #ffffff;
+}
+
+.compact-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.compact-input:invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.compact-input:valid {
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.compact-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: "Cairo", sans-serif;
+  direction: rtl;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.compact-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.compact-input-full {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: "Cairo", sans-serif;
+  direction: rtl;
+  text-align: right;
+  transition: all 0.2s ease;
+  background: #ffffff;
+  grid-column: 1 / -1;
+}
+
+.compact-input-full:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.compact-input-full:invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.compact-input-full:valid {
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.btn-add-compact {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: auto;
+  min-width: 120px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+  flex-shrink: 0;
+  gap: 6px;
+  position: relative;
+}
+
+.btn-add-compact::before {
+  content: "إضافة العمود";
+  font-family: "Cairo", sans-serif;
+}
+
+.btn-add-compact span {
+  display: none;
+}
+
+.btn-add-compact:hover {
+  background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+}
+
+.btn-add-compact:active {
+  transform: translateY(0);
+}
+
+.btn-add-compact:disabled {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.columns-list-compact {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #f1f3f5;
+}
+
+.columns-list-compact h4 {
+  margin: 0 0 12px 0;
+  color: #495057;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.columns-list-compact h4::before {
+  content: "📋";
+  font-size: 1rem;
+}
+
+.column-chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* Removed duplicate - moved to column-manager-header h3 */
+
+.column-form-section {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.column-form-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-items: end;
+}
+
+.column-form-section .form-group {
+  margin-bottom: 0;
+}
+
+.column-form-section .form-actions {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+#select-options-group {
+  grid-column: 1 / -1;
+}
+
+.columns-list-section h4 {
+  color: #495057;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  color: #495057;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e1e8ed;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  font-family: "Cairo", sans-serif;
+  direction: rtl;
+  text-align: right;
+  font-size: 0.9rem;
+  transition: all 0.1s ease;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+  background: #ffffff;
+}
+
+#form-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.field-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.field-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+#form-fields input,
+#form-fields select {
+  padding: 6px 10px;
+  border: 1px solid #e1e8ed;
+  border-radius: 4px;
+  text-align: right;
+  font-family: "Cairo", sans-serif;
+  direction: rtl;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  font-size: 0.85rem;
+  transition: all 0.1s ease;
+}
+
+#form-fields input:focus,
+#form-fields select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+  background: #ffffff;
+}
+
+.form-checkbox {
+  margin-left: 8px;
+  transform: scale(1.2);
+  accent-color: #007bff;
+}
+
+.form-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 6px 10px;
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  border-radius: 4px;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  font-family: "Cairo", sans-serif;
+  direction: rtl;
+  text-align: right;
+  font-size: 0.85rem;
+  transition: all 0.1s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: rgba(0, 123, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.08);
+  background: #ffffff;
+}
+
+/* ================================================
+     Column List Styles
+     ================================================ */
+.enhanced-column-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.enhanced-column-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.enhanced-column-list::-webkit-scrollbar-track {
+  background: #f1f3f5;
+  border-radius: 10px;
+}
+
+.enhanced-column-list::-webkit-scrollbar-thumb {
+  background: #dee2e6;
+  border-radius: 10px;
+}
+
+.enhanced-column-list::-webkit-scrollbar-thumb:hover {
+  background: #adb5bd;
+}
+
+.column-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 8px 12px;
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  gap: 12px;
+}
+
+.column-item:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.column-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.column-name {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.column-type {
+  font-size: 0.7rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  padding: 2px 8px;
+  border-radius: 10px;
+  display: inline-block;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 123, 255, 0.2);
+  white-space: nowrap;
+}
+
+.column-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-edit-column {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-family: "Cairo", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  box-shadow: 0 1px 3px rgba(40, 167, 69, 0.3);
+  font-weight: 500;
+  position: relative;
+  min-width: 60px;
+  white-space: nowrap;
+}
+
+.btn-edit-column::before {
+  content: "✏️";
+  margin-left: 3px;
+  font-size: 0.8rem;
+}
+
+.btn-edit-column:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.4);
+}
+
+.btn-edit-column:active {
+  transform: translateY(0);
+}
+
+.column-move-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.btn-move-up,
+.btn-move-down {
+  width: 32px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  color: #007bff;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.btn-move-up:hover:not(:disabled),
+.btn-move-down:hover:not(:disabled) {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border-color: #007bff;
+  transform: scale(1.1);
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+}
+
+.btn-move-up:disabled,
+.btn-move-down:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: #e9ecef;
+  color: #adb5bd;
+}
+
+.column-position-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 22px;
+  padding: 2px 6px;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-left: 8px;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-delete-column {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-family: "Cairo", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  box-shadow: 0 1px 3px rgba(220, 53, 69, 0.3);
+  font-weight: 500;
+  position: relative;
+  min-width: 60px;
+  white-space: nowrap;
+}
+
+.btn-delete-column::before {
+  content: "🗑️";
+  margin-left: 3px;
+  font-size: 0.8rem;
+}
+
+.btn-delete-column:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.4);
+}
+
+.btn-delete-column:hover::after {
+  content: "حذف العمود";
+  position: absolute;
+  top: -30px;
+  right: 50%;
+  transform: translateX(50%);
+  background: #333;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 0.65rem;
+  opacity: 1;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+.btn-delete-column:active {
+  transform: translateY(0);
+}
+
+/* ================================================
+     Table Styles
+     ================================================ */
+.trader-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
+  table-layout: auto;
+  max-width: 100%;
+  font-size: 0.8rem;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  overflow: hidden;
+}
+
+.trader-table thead {
+  position: relative;
+}
+
+.trader-table tbody {
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+}
+
+/* Removed duplicate styles - moved to natural column distribution section */
+
+/* Perfect Compact Data-Driven Design */
+.trader-table th,
+.trader-table td {
+  padding: 8px 10px;
+  text-align: center;
+  border: 1px solid rgba(0, 123, 255, 0.08);
+  font-size: inherit;
+  vertical-align: middle;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Intelligent content-based column sizing */
+.trader-table th,
+.trader-table td {
+  width: auto;
+  max-width: 200px;
+  min-width: 60px;
+}
+
+/* Specific data type optimizations */
+.trader-table th:first-child,
+.trader-table td:first-child {
+  min-width: 80px;
+  max-width: 120px;
+}
+
+/* Phone number columns - compact but readable */
+.trader-table th:has(+ th),
+.trader-table td:has(+ td) {
+  min-width: 100px;
+  max-width: 140px;
+}
+
+/* Name columns - priority width */
+.trader-table th:nth-child(3),
+.trader-table td:nth-child(3) {
+  min-width: 120px;
+  max-width: 180px;
+  font-weight: 500;
+}
+
+/* Actions column - ultra compact */
+.trader-table th:last-child,
+.trader-table td:last-child {
+  width: 90px !important;
+  min-width: 90px !important;
+  max-width: 90px !important;
+  text-align: center !important;
+  padding: 4px 2px !important;
+}
+
+/* Dynamic headers inherit column widths from nth-child rules */
+
+/* Enhanced table data styling */
+.trader-table td {
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  color: #495057;
+  hyphens: auto;
+  font-weight: 400;
+}
+
+/* Compact view optimizations */
+.trader-table td:hover {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: initial;
+  max-width: none;
+  z-index: 10;
+  position: relative;
+  background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.12);
+  color: #0066cc;
+  font-weight: 500;
+}
+
+/* Smart text handling for different data types */
+.trader-table td[data-type="phone"] {
+  font-family: "Courier New", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  color: #4a90e2;
+  font-weight: 500;
+  background: linear-gradient(135deg, #f0f7ff 0%, #f5f9ff 100%);
+  border-left: 2px solid rgba(74, 144, 226, 0.3);
+}
+
+.trader-table td[data-type="number"] {
+  font-weight: 600;
+  color: #4a9b4a;
+  background: linear-gradient(135deg, #f0f9f0 0%, #f5fbf5 100%);
+  border-left: 2px solid rgba(74, 155, 74, 0.3);
+}
+
+.trader-table td[data-type="text"] {
+  max-width: 150px;
+}
+
+.trader-table td[data-type="url"] {
+  max-width: 120px;
+  font-size: 0.7rem;
+}
+
+/* Professional Location Column Styling */
+.trader-table td[data-type="location"],
+.trader-table th.location-header {
+  font-weight: 600;
+  font-size: 0.75rem;
+  min-width: 90px;
+  max-width: 120px;
+}
+
+.trader-table th.location-header {
+  background: linear-gradient(135deg, #f0f9f0 0%, #e6f7e6 100%);
+  color: #2d5a2d;
+  text-shadow: none;
+  font-weight: 600;
+  border: 1px solid rgba(45, 90, 45, 0.15);
+}
+
+.trader-table td.location-cell {
+  color: #495057;
+  border: 1px solid rgba(45, 90, 45, 0.08);
+  background: linear-gradient(135deg, #f0f9f0 0%, #f5fbf5 100%);
+  font-weight: 500;
+}
+
+.trader-table tr:nth-child(odd) td.location-cell {
+  background: #ffffff;
+}
+
+.trader-table tr:nth-child(even) td.location-cell {
+  background: #f8f9fa;
+}
+
+/* Location hover effects */
+.trader-table td.location-cell:hover {
+  background: #e9ecef;
+}
+
+/* Special handling for URL/Link columns to prevent excessive wrapping */
+.trader-table td:nth-child(5) {
+  line-height: 1.3;
+  font-size: 0.8rem;
+}
+
+.trader-table tr:nth-child(even) td {
+  background: linear-gradient(135deg, #fafbfc 0%, #f5f6f7 100%);
+}
+
+.trader-table tr:hover td {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+  color: #0066cc;
+  font-weight: 500;
+}
+
+.trader-table th {
+  background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%);
+  color: #2c5aa0;
+  font-family: "Cairo", sans-serif;
+  font-weight: 600;
+  text-shadow: none;
+  border: 1px solid rgba(44, 90, 160, 0.15);
+  border-bottom: 1px solid rgba(44, 90, 160, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-sizing: border-box;
+  text-align: center !important;
+  vertical-align: middle;
+  font-size: 0.9rem;
+  padding: 12px 10px;
+  letter-spacing: 0.3px;
+}
+
+/* Clean professional header styling */
+.trader-table th.dynamic-header-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Actions header inherits width from :last-child rule */
+
+.trader-table td .phone-link,
+.trader-table td .email-link,
+.trader-table td .url-link {
+  color: #007bff;
+  text-decoration: none;
+  transition: all 0.1s ease;
+}
+
+.trader-table td .phone-link:hover,
+.trader-table td .email-link:hover,
+.trader-table td .url-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.trader-table td .btn-edit,
+.trader-table td .btn-delete {
+  padding: 4px 6px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: "Cairo", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  margin: 1px;
+  min-width: 35px;
+  display: inline-block;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+.trader-table td .btn-edit {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+.trader-table td .btn-delete {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+.trader-table td .btn-edit:hover {
+  background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(40, 167, 69, 0.4);
+}
+
+.trader-table td .btn-delete:hover {
+  background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(220, 53, 69, 0.4);
+}
+
+/* City separators removed - using location columns instead */
+
+/* Perfect Edit Row Experience */
+.trader-cell.editing {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 2px solid #ffc107;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.row-editing {
+  background: linear-gradient(135deg, #e8f4f8 0%, #f0f8ff 100%);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  transform: translateY(-1px);
+  border: 2px solid #007bff;
+}
+
+.row-editing td {
+  background: transparent !important;
+  border-color: #007bff !important;
+}
+
+/* Inline edit container removed - using row edit instead */
+
+.inline-edit-input,
+.inline-edit-select {
+  width: 100%;
+  padding: 6px 10px;
+  border: 2px solid #007bff;
+  border-radius: 6px;
+  font-family: "Cairo", sans-serif;
+  font-size: 0.85rem;
+  background: #ffffff;
+  direction: rtl;
+  text-align: center;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.inline-edit-input:focus,
+.inline-edit-select:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.inline-edit-checkbox {
+  transform: scale(1.3);
+  accent-color: #007bff;
+  cursor: pointer;
+}
+
+.btn-save {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Cairo", sans-serif;
+  font-size: 0.75rem;
+  transition: all 0.1s ease;
+  box-shadow: 0 1px 3px rgba(40, 167, 69, 0.3);
+  white-space: nowrap;
+}
+
+.btn-save:hover {
+  background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.4);
+}
+
+.btn-cancel {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Cairo", sans-serif;
+  font-size: 0.75rem;
+  transition: all 0.1s ease;
+  box-shadow: 0 1px 3px rgba(220, 53, 69, 0.3);
+  white-space: nowrap;
+}
+
+.btn-cancel:hover {
+  background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.4);
+}
+
+/* See More/Less functionality */
+.see-more-btn {
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.7rem;
+  text-decoration: underline;
+  margin-left: 4px;
+  user-select: none;
+}
+
+.see-more-btn:hover {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.truncated-content,
+.full-content {
+  display: inline;
+}
+
+.trader-cell {
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.trader-cell:hover:not(.editing) {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.trader-cell.editing:hover {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+}
+
+/* ================================================
+     View Mode Specific Styles
+     ================================================ */
+#traders-container {
+  margin-top: 16px;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Table wrapper styling moved to main table section */
+
+/* Card and grid view styles removed - only table view */
+
+/* ================================================
+     Modal Styles
+     ================================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 123, 255, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(1px);
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 123, 255, 0.15);
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  direction: rtl;
+  text-align: right;
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 123, 255, 0.15);
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6c757d;
+  transition: all 0.1s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.modal-close-btn:hover {
+  background: #e9ecef;
+  color: #495057;
+  transform: scale(1.1);
+}
+
+.modal-body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.modal-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.modal-body p {
+  margin: 0;
+  color: #495057;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* Edit Column Form Styles */
+.edit-column-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.form-group-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.edit-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #495057;
+  text-align: right;
+}
+
+.edit-select,
+.edit-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: "Cairo", sans-serif;
+  direction: rtl;
+  text-align: right;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  transition: all 0.2s ease;
+}
+
+.edit-select:focus,
+.edit-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  background: #ffffff;
+}
+
+.edit-input::placeholder {
+  color: #adb5bd;
+}
+
+/* ================================================
+     Animation Keyframes
+     ================================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ================================================
+     Focus and Accessibility Styles
+     ================================================ */
+button:focus,
+input:focus,
+select:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.view-btn:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: -2px;
+}
+
+/* ================================================
+     RTL Specific Styles
+     ================================================ */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .trader-card-value {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .modal-actions {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .header-controls {
+  flex-direction: row-reverse;
+}
+
+/* ================================================
+     High Contrast Mode Support
+     ================================================ */
+@media (prefers-contrast: high) {
+  .trader-card,
+  .trader-grid-item,
+  .column-item {
+    border-width: 2px;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
+    border: 2px solid currentColor;
+  }
+}
+
+/* ================================================
+     Reduced Motion Support
+     ================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ================================================
+     Responsive Design
+     ================================================ */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .sidebar {
+    order: 1;
+    padding: 14px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sidebar h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .location-list > li {
+    padding: 8px 10px;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    min-height: 36px;
+  }
+
+  .location-list > li::before {
+    font-size: 0.9rem;
+    margin-left: 6px;
+  }
+
+  .location-list > li::after {
+    font-size: 0.7rem;
+  }
+
+  .main-content {
+    order: 2;
+    padding: 16px;
+  }
+
+  .trader-header {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    margin-bottom: 12px;
+  }
+
+  .trader-header h2 {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .header-controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .view-mode-toggle {
+    order: 2;
+    justify-content: center;
+  }
+
+  .action-buttons {
+    order: 1;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-buttons #add-trader-btn {
+    margin-left: 0;
+  }
+
+  .column-manager {
+    padding: 14px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .btn-add-compact {
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    min-width: auto;
+  }
+
+  .btn-add-compact::before {
+    content: "إضافة العمود";
+  }
+
+  .column-chips {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .column-item {
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .column-move-buttons {
+    gap: 3px;
+  }
+
+  .btn-move-up,
+  .btn-move-down {
+    width: 28px;
+    height: 22px;
+    font-size: 0.65rem;
+  }
+
+  .column-position-badge {
+    min-width: 24px;
+    height: 20px;
+    font-size: 0.65rem;
+    padding: 2px 5px;
+  }
+
+  .column-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .column-name {
+    font-size: 0.8rem;
+  }
+
+  .column-type {
+    font-size: 0.65rem;
+    padding: 1px 6px;
+  }
+
+  .column-actions {
+    align-self: center;
+  }
+
+  .btn-edit-column,
+  .btn-delete-column {
+    min-width: 50px;
+    padding: 3px 6px;
+    font-size: 0.7rem;
+  }
+
+  .btn-edit-column::before {
+    font-size: 0.7rem;
+  }
+
+  /* Dynamic headers and actions header on mobile inherit from general column rules */
+
+  .location-list > li > ul,
+  .city-list {
+    padding: 6px;
+    gap: 3px;
+  }
+
+  .location-list > li > ul li,
+  .city-list li {
+    padding: 6px 8px;
+    font-size: 0.85rem;
+    min-height: 32px;
+  }
+
+  .location-list > li > ul li::before,
+  .city-list li::before {
+    font-size: 0.8rem;
+    margin-left: 6px;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    padding: 3px 6px;
+    min-width: 18px;
+    height: 18px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    width: 100%;
+    margin-bottom: 4px;
+  }
+
+  #form-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 123, 255, 0.2) transparent;
+  }
+
+  #form-fields::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  #form-fields::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  #form-fields::-webkit-scrollbar-thumb {
+    background: rgba(0, 123, 255, 0.2);
+    border-radius: 3px;
+  }
+
+  #form-fields::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 123, 255, 0.3);
+  }
+
+  .field-container {
+    background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+    border: 1px solid rgba(0, 123, 255, 0.15);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.08);
+    transition: all 0.15s ease;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .field-container:hover {
+    border-color: rgba(0, 123, 255, 0.25);
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-content {
+    margin: 16px;
+    max-width: none;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .btn-danger,
+  .modal-actions .btn-secondary {
+    width: 100%;
+  }
+
+  .trader-table {
+    font-size: 0.7rem;
+    width: 100%;
+    table-layout: auto;
+  }
+
+  #form-fields {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    max-height: 60vh;
+    padding-right: 0;
+  }
+
+  .field-container {
+    padding: 12px;
+    min-height: 70px;
+  }
+
+  .trader-table th,
+  .trader-table td {
+    padding: 4px 3px;
+    font-size: 0.65rem;
+    min-width: 50px;
+    max-width: 120px;
+  }
+
+  /* Ultra compact mobile - location columns */
+  .trader-table th.location-header,
+  .trader-table td.location-cell {
+    min-width: 70px;
+    max-width: 90px;
+    font-size: 0.6rem;
+    padding: 3px 2px;
+  }
+
+  /* Priority content columns on mobile */
+  .trader-table th:nth-child(3),
+  .trader-table td:nth-child(3) {
+    min-width: 70px;
+    max-width: 90px;
+  }
+
+  .trader-table th:nth-child(5),
+  .trader-table td:nth-child(5) {
+    min-width: 80px;
+    max-width: 120px;
+    font-weight: 600;
+  }
+
+  .trader-table th:last-child,
+  .trader-table td:last-child {
+    width: 70px !important;
+    min-width: 70px !important;
+    max-width: 70px !important;
+    padding: 2px 1px !important;
+  }
+
+  .trader-table td .btn-edit,
+  .trader-table td .btn-delete {
+    display: block;
+    width: 100%;
+    margin: 1px 0;
+    padding: 3px 4px;
+    font-size: 0.6rem;
+    min-width: auto;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+  }
+
+  .trader-cards-view {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .trader-grid-view {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+
+  .trader-card {
+    padding: 14px;
+  }
+
+  .trader-grid-item {
+    padding: 12px;
+  }
+
+  .trader-grid-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+}
